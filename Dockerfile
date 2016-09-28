@@ -4,7 +4,7 @@ MAINTAINER Yiannis Mouchakis <gmouchakis@iit.demokritos.gr>
 
 RUN apt-get update && apt-get install -y git openjdk-7-jdk maven && \
     cd /opt && \
-    git clone https://github.com/gmouchakis/docker-fedx.git && cd docker-fedx && git checkout building && \
+    git clone https://github.com/gmouchakis/docker-fedx.git && cd docker-fedx && \
     mvn clean package && \
     cd /opt/docker-fedx && \
     cp target/fedx-*.war /usr/local/tomcat/webapps/ && \
