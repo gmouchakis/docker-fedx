@@ -4,7 +4,7 @@ FedX deployed on a Tomcat 8 server.
 
 To build
 ```
-docker build -t fexd .
+docker build -t fedx .
 ```
 
 To run
