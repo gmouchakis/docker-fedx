@@ -68,6 +68,7 @@ public class FedXRepositoryManager extends RepositoryManager {
 		
 		if ( ! isInitialized ) {
 			Config.initialize(dataConfig);
+			Config.getConfig().set("debugQueryPlan", "true");
 			isInitialized = true;
 		}
 		
