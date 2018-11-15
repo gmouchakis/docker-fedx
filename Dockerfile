@@ -1,16 +1,15 @@
-FROM tomcat:8
+FROM maven:3.3.3-jdk-8 as build
 
 MAINTAINER Yiannis Mouchakis <gmouchakis@iit.demokritos.gr>
 
-COPY . /opt/fedx-server
+COPY . /tmp
+WORKDIR /tmp
 
-RUN apt-get update && apt-get install -y git openjdk-7-jdk maven && \
-    cd /opt/fedx-server && \
-    mvn clean package && \
-    cp target/fedx-*.war /usr/local/tomcat/webapps/ && \
-    cd / && rm -r /opt/fedx-server && rm -r /root/.m2 && \
-    apt-get --purge remove -y git openjdk-7-jdk maven && apt-get --purge autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN mvn clean package
+
+FROM tomcat:8-alpine
+
+COPY --from=build /tmp/target/fedx-*.war /usr/local/tomcat/webapps
 
 EXPOSE 8080
 
-CMD catalina.sh run
